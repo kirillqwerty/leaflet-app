@@ -1,49 +1,54 @@
 import { Component, AfterViewInit} from "@angular/core";
 import * as L from "leaflet";
+import { PopUpDataService } from "../services/pop-up-data.service";
 
 @Component({
   selector: "app-map",
   templateUrl: "./map.component.html",
   styleUrls: ["./map.component.scss"]
-
 })
 
 export class MapComponent implements AfterViewInit {
 
-  private map?: any;
-
-  public ngAfterViewInit(): void {
-    this.initMap();
-  }
-
-  private initMap(): void {
+    private map?: any;
 
 
+    constructor(private dataService: PopUpDataService) { }
 
-    this.map = L.map("map", {
+    public ngAfterViewInit(): void {
+        this.initMap();
+        this.dataService.newObject$
+            .subscribe(() => this.addMarks())
 
-      center: [ 39.8282, -98.5795 ],
+        this.dataService.deleteObject$
+            .subscribe((data) => this.removeMark(data.coordinateY, data.coordinateX))
+    }
 
-      zoom: 3
+    
+    public addMarks(): void{
+        for (const object of this.dataService.objects) {
+            L.marker([object.coordinateY, object.coordinateX]).addTo(this.map);
+        }
+    }
 
-    });
+    public removeMark(coordinateY: number, coordinateX: number): void{
+        L.marker([coordinateY, coordinateX]).removeFrom(this.map);
+    }
 
-    L.marker([28.5, 51]).addTo(this.map);
+    private initMap(): void {
+        this.map = L.map("map", {
+            center: [ 39.8282, -98.5795 ],
+            zoom: 3
+        });
 
-    const tiles = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        const tiles = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
-      maxZoom: 18,
+            maxZoom: 18,
+            minZoom: 2,
+            attribution: "&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>"
 
-      minZoom: 1,
+        });
 
-      attribution: "&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>"
-
-    });
-
-    tiles.addTo(this.map);
-  }
-
-  constructor() { }
-
-  
+        tiles.addTo(this.map);
+    }
 }

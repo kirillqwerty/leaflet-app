@@ -15,6 +15,8 @@ export class ObjectListComponent implements OnInit {
 
     public searchResult: myObject[] = [];
 
+    public searchWord = "";
+
     public searchControl = new FormControl("");
     // public currentObjects: myObject[] = [
     //     {
@@ -42,8 +44,8 @@ export class ObjectListComponent implements OnInit {
         this.searchControl.valueChanges
             .subscribe(
                 (data) => {
-                    console.log(data);
-                    this.search(data as string);
+                    this.searchWord = data as string;
+                    this.search(this.searchWord);
                     console.log(this.currentObjects);
                 }
             )
@@ -51,7 +53,6 @@ export class ObjectListComponent implements OnInit {
     }
 
     public addObject(): void{
-        // this.searchResult = this.currentObjects;
         this.searchControl.setValue("");
         this.popUpService.changePopUpStatus(true);
         this.searchResult = this.popUpService.objects;
@@ -60,7 +61,7 @@ export class ObjectListComponent implements OnInit {
 
     public deleteObject(object: myObject): void {
         this.popUpService.deleteObject(object);
-        console.log(this.searchResult.splice(this.searchResult.indexOf(object), 1));
+        this.search(this.searchWord);
         this.cdr.detectChanges();
     }
 

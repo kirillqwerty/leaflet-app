@@ -11,6 +11,8 @@ export class PopUpDataService {
 
     public newObject$ = new Subject<myObject>();
 
+    public deleteObject$ = new Subject<myObject>(); 
+
     private myObjects: myObject[] = [];
 
     public get objects(): myObject[] {
@@ -27,8 +29,7 @@ export class PopUpDataService {
     }
 
     public deleteObject(object: myObject): void{
-        console.log(this.myObjects.indexOf(object));
         console.log(this.myObjects.splice(this.myObjects.indexOf(object), 1));
-        console.log(this.myObjects);
+        this.deleteObject$.next(object);
     }
 }
