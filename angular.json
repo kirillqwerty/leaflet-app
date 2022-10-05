@@ -50,6 +50,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/leaflet/dist/leaflet.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -122,8 +123,22 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

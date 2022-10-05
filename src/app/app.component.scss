@@ -1,0 +1,44 @@
+app-object-list{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+app-map{
+    height: 100%;
+    width: 70%;
+    background: #ff8e8e;
+    display: flex;
+    border-left: 2px solid black;
+}
+
+app-pop-up-add-object{
+    border-radius: 5px;
+    width: 20%;
+    height: 60%;
+    background: #fefefe;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    margin-right: -50%;
+    box-shadow: 0px 0px 19px 11px rgba(34, 60, 80, 0.2);
+}
+
+.background{
+    pointer-events: none;
+    animation: 0.3s blurScale;
+    filter: blur(8px);  
+}
+
+@keyframes blurScale {
+    from {
+        filter: blur(0px);
+    }
+    to {
+        filter: blur(8px);
+    }
+  }
+  

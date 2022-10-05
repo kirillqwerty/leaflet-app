@@ -1,0 +1,36 @@
+<div class="head">
+    <button class="btn-back" (click)="goBack()">&#8592;</button>
+    <label class="head-label">New object</label>
+</div>
+
+<div class="body-wrapper" [formGroup]="objectForm" >
+    <div class="body">
+
+        <div class="input-wrapper">
+            <app-err-wrapper [control]="objectForm" path="objectName">
+                    <label class="input-label">Object name</label>
+                    <input type="text" formControlName="objectName" >
+            </app-err-wrapper>
+        </div>
+
+        <div class="input-wrapper">
+            <app-err-wrapper [control]="objectForm" path="coordinateX">
+                <label class="input-label">Latitude</label>
+                <input type="number" formControlName="coordinateX" >
+            </app-err-wrapper>
+        </div>
+
+        <div class="input-wrapper">
+            <app-err-wrapper [control]="objectForm" path="coordinateY">
+                <label class="input-label">Longitude</label>
+                <input type="number" formControlName="coordinateY" >
+            </app-err-wrapper>
+        </div>
+          
+    </div>
+
+    <div class="btn-wrapper">
+        <button class="btn-add-object" (click)="addObject()">Add</button>
+    </div>
+</div>
+

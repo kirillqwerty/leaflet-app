@@ -1,0 +1,16 @@
+<div class="head">
+    <input type="text" class="search-input" placeholder="Search" [formControl] = "searchControl">
+    <button (click)="addObject()">+</button>
+</div>
+<div class="body-wrapper">
+    <div class="body">
+        <div *ngFor="let object of searchResult" class="object-section">
+            <div class="object-info">
+                <label>Name: {{object.objectName}}</label> 
+                <label>Latitude: {{object.coordinateX}}</label>
+                <label>Longitude: {{object.coordinateY}}</label> 
+            </div>
+            <a class="delete-btn" (click)="deleteObject(object)"><span></span></a>
+        </div>
+    </div>
+</div>
