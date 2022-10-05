@@ -18,7 +18,7 @@ export class ObjectListComponent implements OnInit {
     public searchWord = "";
 
     public searchControl = new FormControl("");
-    // public currentObjects: myObject[] = [
+    // public searchResult: myObject[] = [
     //     {
     //         objectName: "123123",
     //         coordinateX: 213,

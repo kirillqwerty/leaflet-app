@@ -5,10 +5,12 @@
 <div class="body-wrapper">
     <div class="body">
         <div *ngFor="let object of searchResult" class="object-section">
-            <div class="object-info">
-                <label>Name: {{object.objectName}}</label> 
-                <label>Latitude: {{object.coordinateX}}</label>
-                <label>Longitude: {{object.coordinateY}}</label> 
+            <div class="object-info-wrapper">
+                <div class="object-info">
+                    <label>Name: {{object.objectName}}</label> 
+                    <label>Latitude: {{object.coordinateX}}</label>
+                    <label>Longitude: {{object.coordinateY}}</label> 
+                </div>
             </div>
             <a class="delete-btn" (click)="deleteObject(object)"><span></span></a>
         </div>
