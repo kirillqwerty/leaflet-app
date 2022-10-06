@@ -74,6 +74,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     //   }
 
     public center(y: number, x: number): void{
+        
+        for (const marker of this.myMarkers) {
+            if (marker.getLatLng().lat === x && marker.getLatLng().lng === y) {
+                this.map?.setView(marker.getLatLng() as L.LatLngExpression, 5);
+            }
+        }
         console.log(y,x);
         console.log(this.map)
         this.cdr.detectChanges();
