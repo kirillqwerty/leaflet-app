@@ -37,7 +37,6 @@ export class ObjectListComponent implements OnInit, OnDestroy {
                 (data) => {
                     this.searchWord = data as string;
                     this.search(this.searchWord);
-                    console.log(this.currentObjects);
                 }
             )
         this.cdr.detectChanges();    
@@ -61,13 +60,7 @@ export class ObjectListComponent implements OnInit, OnDestroy {
             this.cdr.detectChanges();
         }, 400);
 
-        // this.objectService.deleteObject(object);
-
-        console.log(this.currentObjects);
-        console.log(this.searchResult);
-        console.log(this.objectService.objects);
         this.cdr.detectChanges();
-
     }
 
     public setCurrentObject(object: myObject): void{

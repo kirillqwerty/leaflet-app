@@ -13,8 +13,6 @@ import { myObject } from "../types/myObject.interface";
 
 export class MapComponent implements AfterViewInit, OnDestroy {
 
-    public currentObject?: myObject;
-
     private map?: L.Map;
 
     private myMarkers: L.Marker<myObject>[] = []
@@ -33,14 +31,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.dataService.deleteObject$
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((data) => {
-                console.log(data);
                 this.removeMark(data.coordinateY, data.coordinateX);
             })
         
         this.dataService.currentObject$
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((object) =>{
-                console.log(object);
                 this.center(object.coordinateY, object.coordinateX);
             })
 
@@ -49,10 +45,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     
     public addMark(object: myObject): void{
         this.myMarkers.push(L.marker([object.coordinateX, object.coordinateY]).addTo(this.map as L.Map));
-        for (const marker of this.myMarkers) {
-            console.log(marker);
-            console.log(marker.getLatLng());
-        }
         this.cdr.detectChanges();
     }
 
@@ -65,14 +57,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.cdr.detectChanges();
     }
 
-    // public removeMarks(): void{
-    //     this.map.clearLayers();
-    //     this.map.eachLayer((layer) => {
-    //         layer.remove();
-    //       });
-    //     this.cdr.detectChanges();
-    //   }
-
     public center(y: number, x: number): void{
         
         for (const marker of this.myMarkers) {
@@ -80,8 +64,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
                 this.map?.setView(marker.getLatLng() as L.LatLngExpression, 5);
             }
         }
-        console.log(y,x);
-        console.log(this.map)
         this.cdr.detectChanges();
     }
 
