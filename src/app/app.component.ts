@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subject, takeUntil } from "rxjs";
-import { PopUpDataService } from "./services/pop-up-data.service";
+import { ObjectService } from "./services/object-data.service";
 
 @Component({
   selector: "app-root",
@@ -12,12 +12,10 @@ export class AppComponent implements OnInit, OnDestroy{
     public isPopUpActive = false;
     private readonly unsubscribe$: Subject<void> = new Subject();
 
-    constructor(private popUpService: PopUpDataService){
-    
-    }
+    constructor(private objectService: ObjectService){}
 
     public ngOnInit(): void {
-        this.popUpService.isPopUpActive$
+        this.objectService.isPopUpActive$
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (data) => {

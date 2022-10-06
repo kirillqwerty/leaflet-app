@@ -4,15 +4,24 @@
 </div>
 <div class="body-wrapper">
     <div class="body">
-        <div *ngFor="let object of searchResult" class="object-section">
-            <div class="object-info-wrapper">
+        <label *ngIf="currentObjects.length === 0" class="message-section">No objects</label>
+        <label *ngIf="searchWord.length !== 0 && 
+                    searchResult.length === 0 && 
+                    currentObjects.length !== 0" class="message-section">No search result</label>
+
+        <div *ngFor="let object of searchResult" class="object-section"
+         [ngClass]="{deletion: object.objectName === deletion}"
+         >
+            <a class="object-info-wrapper" [ngClass]="{disabled: deletion.length !== 0}" (click)="setCurrentObject(object)">
                 <div class="object-info">
                     <label>Name: {{object.objectName}}</label> 
                     <label>Latitude: {{object.coordinateX}}</label>
                     <label>Longitude: {{object.coordinateY}}</label> 
                 </div>
-            </div>
-            <a class="delete-btn" (click)="deleteObject(object)"><span></span></a>
+            </a>
+            <a class="delete-btn" (click)="deleteObject(object)"[ngClass]="{disabled: deletion.length !== 0}"><span></span></a>
+            <!-- <a class="delete-btn"><span></span></a> -->
+
         </div>
     </div>
 </div>

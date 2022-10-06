@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { FORMS_VALIDATION_ERRORS } from "../injectionTokenSettings/errors.token";
 import { objectNameMatch } from "../object-list/validators/object-name.validator";
-import { PopUpDataService } from "../services/pop-up-data.service";
+import { ObjectService } from "../services/object-data.service";
 import { myObject } from "../types/myObject.interface";
 
 
@@ -29,15 +29,15 @@ import { myObject } from "../types/myObject.interface";
 export class PopUpAddObjectComponent{
 
     public objectForm = new FormGroup({
-        objectName: new FormControl(<string> "", [Validators.required, Validators.maxLength(60), objectNameMatch(this.popUpService.objects)]),
+        objectName: new FormControl(<string> "", [Validators.required, Validators.maxLength(60), objectNameMatch(this.objectService.objects)]),
         coordinateX: new FormControl(<number|null> null, [Validators.required, Validators.min(-180), Validators.max(180)]),
         coordinateY: new FormControl(<number|null> null, [Validators.required, Validators.min(-180), Validators.max(180)])
     })
 
-    constructor(private popUpService: PopUpDataService) { }
+    constructor(private objectService: ObjectService) { }
 
     public goBack(): void {
-        this.popUpService.changePopUpStatus(false);
+        this.objectService.changePopUpStatus(false);
     }
 
     public addObject(): void {
@@ -47,8 +47,8 @@ export class PopUpAddObjectComponent{
                 coordinateX: this.objectForm.get("coordinateX")?.value as number,
                 coordinateY: this.objectForm.get("coordinateY")?.value as number,
             }
-            this.popUpService.addObject(newObject);
-            this.popUpService.changePopUpStatus(false);
+            this.objectService.addObject(newObject);
+            this.objectService.changePopUpStatus(false);
         }
         else{
             this.objectForm.markAllAsTouched();

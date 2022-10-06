@@ -10,7 +10,10 @@ app-map{
     width: 70%;
     background: #ff8e8e;
     display: flex;
-    border-left: 2px solid black;
+    justify-content: center;
+    padding-top: 16px;
+    // align-items: center;
+    // border-left: 2px solid #bdbdfc;
 }
 
 app-pop-up-add-object{

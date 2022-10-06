@@ -2,6 +2,13 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     justify-content: first baseline;
+    box-shadow: none;
+}
+
+.btn-back{
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
 }
 
 .head-label{
@@ -19,7 +26,7 @@
 
 .body{
     margin-top: 2.5%;
-    height: 70%;
+    height: 68%;
     justify-content: space-evenly;
 }
 
@@ -52,6 +59,7 @@ input{
     width: 94%;
     height: 50px;
     font-size: 25px;
+    border: 5px solid #bdbdfc;    
 }
 
 label{

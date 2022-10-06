@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { PopUpDataService } from "../services/pop-up-data.service";
+import { Subject, takeUntil } from "rxjs";
+import { ObjectService } from "../services/object-data.service";
 import { myObject } from "../types/myObject.interface";
 
 @Component({
@@ -9,7 +10,7 @@ import { myObject } from "../types/myObject.interface";
   styleUrls: ["./object-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ObjectListComponent implements OnInit {
+export class ObjectListComponent implements OnInit, OnDestroy {
 
     public currentObjects: myObject[] = [];
 
@@ -18,31 +19,21 @@ export class ObjectListComponent implements OnInit {
     public searchWord = "";
 
     public searchControl = new FormControl("");
-    // public searchResult: myObject[] = [
-    //     {
-    //         objectName: "123123",
-    //         coordinateX: 213,
-    //         coordinateY: 4321
-    //     },
-    //     {
-    //         objectName: "adsfsdf",
-    //         coordinateX: 456,
-    //         coordinateY: 175
-    //     },
-    //     {
-    //         objectName: "fasd",
-    //         coordinateX: 4856,
-    //         coordinateY: 1634
-    //     }]
 
-    constructor(private popUpService: PopUpDataService,
+    public deletion = "";
+
+    private readonly unsubscribe$: Subject<void> = new Subject();
+
+
+    constructor(private objectService: ObjectService,
                 private cdr: ChangeDetectorRef) { }
 
     public ngOnInit(): void {
-        this.currentObjects = this.popUpService.objects;
+        this.currentObjects = this.objectService.objects;
 
         this.searchControl.valueChanges
-            .subscribe(
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe( 
                 (data) => {
                     this.searchWord = data as string;
                     this.search(this.searchWord);
@@ -54,14 +45,33 @@ export class ObjectListComponent implements OnInit {
 
     public addObject(): void{
         this.searchControl.setValue("");
-        this.popUpService.changePopUpStatus(true);
-        this.searchResult = this.popUpService.objects;
+        this.objectService.changePopUpStatus(true);
+        this.searchResult = this.objectService.objects;
         this.cdr.detectChanges();
     }
 
     public deleteObject(object: myObject): void {
-        this.popUpService.deleteObject(object);
-        this.search(this.searchWord);
+        this.deletion = object.objectName;
+
+        setTimeout(() => {
+
+            this.deletion = "";
+            this.objectService.deleteObject(object);
+            this.search(this.searchWord);
+            this.cdr.detectChanges();
+        }, 400);
+
+        // this.objectService.deleteObject(object);
+
+        console.log(this.currentObjects);
+        console.log(this.searchResult);
+        console.log(this.objectService.objects);
+        this.cdr.detectChanges();
+
+    }
+
+    public setCurrentObject(object: myObject): void{
+        this.objectService.changeCurrentObject(object);
         this.cdr.detectChanges();
     }
 
@@ -76,9 +86,14 @@ export class ObjectListComponent implements OnInit {
         } 
         
         if (this.searchResult.length === 0 && searchWord === "") {
-            this.searchResult = this.popUpService.objects;
+            this.searchResult = this.objectService.objects;
         }
         this.cdr.detectChanges();
+    }
+
+    public ngOnDestroy(): void {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 
 }
