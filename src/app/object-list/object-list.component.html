@@ -1,6 +1,6 @@
 <div class="head">
     <input type="text" class="search-input" placeholder="Search" [formControl] = "searchControl">
-    <button (click)="addObject()">+</button>
+    <button (click)="addObject()" class="btn-add">+</button>
 </div>
 <div class="body-wrapper">
     <div class="body">
@@ -9,17 +9,15 @@
                     searchResult.length === 0 && 
                     currentObjects.length !== 0" class="message-section">No search result</label>
 
-        <div *ngFor="let object of searchResult" class="object-section"
-         [ngClass]="{deletion: object.objectName === deletion}"
-         >
-            <a class="object-info-wrapper" [ngClass]="{disabled: deletion.length !== 0}" (click)="setCurrentObject(object)">
+        <div *ngFor="let object of searchResult" class="object-section">
+            <a class="object-info-wrapper" (click)="setCurrentObject(object)">
                 <div class="object-info">
                     <label>Name: {{object.objectName}}</label> 
                     <label>Latitude: {{object.coordinateX}}</label>
                     <label>Longitude: {{object.coordinateY}}</label> 
                 </div>
             </a>
-            <a class="delete-btn" (click)="deleteObject(object)"[ngClass]="{disabled: deletion.length !== 0}"><span></span></a>
+            <a class="delete-btn" (click)="deleteObject(object)"><span></span></a>
             <!-- <a class="delete-btn"><span></span></a> -->
 
         </div>

@@ -1,9 +1,11 @@
+
 <div class="head">
     <button class="btn-back" (click)="goBack()">&#8592;</button>
     <label class="head-label">New object</label>
 </div>
 
 <div class="body-wrapper" [formGroup]="objectForm" >
+    
     <div class="body">
 
         <div class="input-wrapper">
@@ -28,9 +30,8 @@
         </div>
           
     </div>
-
-    <div class="btn-wrapper">
-        <button class="btn-add-object" (click)="addObject()">Add</button>
-    </div>
+</div>
+<div class="btn-wrapper">
+    <button class="btn-add-object" (click)="addObject()">Add</button>
 </div>
 

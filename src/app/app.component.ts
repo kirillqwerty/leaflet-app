@@ -9,7 +9,7 @@ import { ObjectService } from "./services/object-data.service";
 })
 export class AppComponent implements OnInit, OnDestroy{
     
-    public isPopUpActive = false;
+    public isPopUpActive = true;
     private readonly unsubscribe$: Subject<void> = new Subject();
 
     constructor(private objectService: ObjectService){}

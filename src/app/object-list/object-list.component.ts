@@ -1,26 +1,37 @@
+import { trigger, state, style, transition, animate } from "@angular/animations";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
 import { ObjectService } from "../services/object-data.service";
-import { myObject } from "../types/myObject.interface";
+import { MapObject } from "../types/MapObject.interface";
 
 @Component({
   selector: "app-object-list",
   templateUrl: "./object-list.component.html",
+  animations: [trigger("deletion", [
+    state("open", style({
+      opacity: 1,
+    })),
+    state("closed", style({
+      opacity: 0.7,
+      width: 0
+    })),
+    transition("open => closed", [
+      animate("0.4s")
+    ]),]),
+  ],
   styleUrls: ["./object-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ObjectListComponent implements OnInit, OnDestroy {
 
-    public currentObjects: myObject[] = [];
+    public currentObjects: MapObject[] = [];
 
-    public searchResult: myObject[] = [];
+    public searchResult: MapObject[] = [];
 
     public searchWord = "";
 
     public searchControl = new FormControl("");
-
-    public deletion = "";
 
     private readonly unsubscribe$: Subject<void> = new Subject();
 
@@ -30,6 +41,66 @@ export class ObjectListComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.currentObjects = this.objectService.objects;
+        // this.searchResult = [
+        // {
+        //     objectName: "1",
+        //     coordinateX: 213,
+        //     coordinateY: 4321
+        // },
+        // {
+        //     objectName: "2",
+        //     coordinateX: 456,
+        //     coordinateY: 175
+        // },
+        // {
+        //     objectName: "3",
+        //     coordinateX: 4856,
+        //     coordinateY: 1634
+        // },
+        // {
+        //     objectName: "4",
+        //     coordinateX: 213,
+        //     coordinateY: 4321
+        // },
+        // {
+        //     objectName: "5",
+        //     coordinateX: 456,
+        //     coordinateY: 175
+        // },
+        // {
+        //     objectName: "6",
+        //     coordinateX: 4856,
+        //     coordinateY: 1634
+        // },{
+        //     objectName: "7",
+        //     coordinateX: 213,
+        //     coordinateY: 4321
+        // },
+        // {
+        //     objectName: "8",
+        //     coordinateX: 456,
+        //     coordinateY: 175
+        // },
+        // {
+        //     objectName: "9",
+        //     coordinateX: 4856,
+        //     coordinateY: 1634
+        // },{
+        //     objectName: "11",
+        //     coordinateX: 213,
+        //     coordinateY: 4321
+        // },
+        // {
+        //     objectName: "22",
+        //     coordinateX: 456,
+        //     coordinateY: 175
+        // },
+        // {
+        //     objectName: "33",
+        //     coordinateX: 4856,
+        //     coordinateY: 1634
+        // }]
+
 
         this.searchControl.valueChanges
             .pipe(takeUntil(this.unsubscribe$))
@@ -49,21 +120,13 @@ export class ObjectListComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
     }
 
-    public deleteObject(object: myObject): void {
-        this.deletion = object.objectName;
-
-        setTimeout(() => {
-
-            this.deletion = "";
-            this.objectService.deleteObject(object);
-            this.search(this.searchWord);
-            this.cdr.detectChanges();
-        }, 400);
-
+    public deleteObject(object: MapObject): void {
+        this.objectService.deleteObject(object);
+        this.search(this.searchWord);
         this.cdr.detectChanges();
     }
 
-    public setCurrentObject(object: myObject): void{
+    public setCurrentObject(object: MapObject): void{
         this.objectService.changeCurrentObject(object);
         this.cdr.detectChanges();
     }

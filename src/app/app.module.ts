@@ -19,7 +19,7 @@ import { ErrWrapperComponent } from "./err-wrapper/err-wrapper.component";
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

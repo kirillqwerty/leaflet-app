@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
-import { myObject } from "../types/myObject.interface";
+import { MapObject } from "../types/MapObject.interface";
 
 @Injectable({
   providedIn: "root"
@@ -9,12 +9,12 @@ export class ObjectService {
 
     public isPopUpActive$ = new Subject<boolean>();
 
-    public newObject$ = new Subject<myObject>();
+    public newObject$ = new Subject<MapObject>();
 
-    public deleteObject$ = new Subject<myObject>(); 
+    public deleteObject$ = new Subject<MapObject>(); 
 
-    public currentObject$ = new Subject<myObject>();
-    // private myObjects: myObject[] = [
+    public currentObject$ = new Subject<MapObject>();
+    // private MapObjects: MapObject[] = [
     //     {
     //         objectName: "1",
     //         coordinateX: 213,
@@ -74,13 +74,13 @@ export class ObjectService {
     //         coordinateY: 1634
     //     }]
 
-    private myObjects: myObject[] = [];
+    private MapObjects: MapObject[] = [];
     
-    public get objects(): myObject[] {
-        return this.myObjects;
+    public get objects(): MapObject[] {
+        return this.MapObjects;
     }
 
-    public changeCurrentObject(object: myObject): void{
+    public changeCurrentObject(object: MapObject): void{
         this.currentObject$.next(object);
     }
 
@@ -88,13 +88,13 @@ export class ObjectService {
         this.isPopUpActive$.next(status);
     }
 
-    public addObject(object: myObject): void{
-        this.myObjects.push(object);
+    public addObject(object: MapObject): void{
+        this.MapObjects.push(object);
         this.newObject$.next(object);
     }
 
-    public deleteObject(object: myObject): void{
-        console.log(this.myObjects.splice(this.myObjects.indexOf(object), 1));
+    public deleteObject(object: MapObject): void{
+        console.log(this.MapObjects.splice(this.MapObjects.indexOf(object), 1));
         this.deleteObject$.next(object);
     }
 }

@@ -1,6 +1,7 @@
 .search-input{   
-    width: 400px;
-    height: 60px;
+    width: 70%;
+    height: 40%;
+    min-height: 30px;
 }
 
 .search-input:hover{   
@@ -8,6 +9,12 @@
     transition-duration: 0.1s;
 }
 
+.btn-add{
+    height: 40%;
+    width: 10%;
+    font-size: 20px;
+    min-height: 30px;
+}
 
 .message-section{
     height: 40%;
@@ -20,8 +27,7 @@
 
 .object-section{
     width: 90%;
-    height: 10%;
-    // border-radius: 5px;
+    min-height: 70px;
     margin-top: 15px;
     display: flex;
     justify-content: center;
@@ -29,6 +35,7 @@
 }
 
 .object-info-wrapper{
+    min-width: 200px;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
     background: #bdbdfc;
@@ -64,6 +71,7 @@
 
 .delete-btn {
     width: 20%;
+    min-width: 60px;
     height: 100%;
     background: #ff8e8e;
     border-top-right-radius: 5px;
@@ -82,23 +90,23 @@
     background: #ff8e8e;
 }
 
-.disabled{
-    opacity: 0.95;
-    pointer-events: none;
-}
+// .disabled{
+//     opacity: 0.95;
+//     pointer-events: none;
+// }
 
-.deletion{
-    animation: 0.401s deletionAnimation;
-}
+// .deletion{
+//     animation: 0.401s deletionAnimation;
+// }
 
-@keyframes deletionAnimation {
-    from {
-        transform: translate(0);
-    }
-    to {
-        transform: translate(-500px);
-    }
-}
+// @keyframes deletionAnimation {
+//     from {
+//         transform: translate(0);
+//     }
+//     to {
+//         transform: translate(-500px);
+//     }
+// }
 
 .delete-btn span {
      position: relative;
@@ -106,35 +114,29 @@
      width: 30px;
      height: 40px;
      display: inline-block;
-    //  background: #bdbdfc;
+     background: rgba(189,189,252);
     // background: linear-gradient(90deg, 
-    // rgba(189,189,252,1) 16%, rgba(255,142,142,1) 16%, 
-    // rgba(255,142,142,1) 20%, rgba(189,189,252,1) 20%, 
-    // rgba(189,189,252,1) 36%, rgba(255,142,142,1) 36%, 
-    // rgba(255,142,142,1) 40%, rgba(189,189,252,1) 40%, 
-    // rgba(189,189,252,1) 56%, rgba(255,142,142,1) 56%, 
-    // rgba(255,142,142,1) 60%, rgba(189,189,252,1) 60%, 
-    // rgba(189,189,252,1) 76%, rgba(255,142,142,1) 76%, 
-    // rgba(255,142,142,1) 80%, rgba(189,189,252,1) 80%);
-    background: linear-gradient(90deg, 
-    rgba(189,189,252,1) 16%, white 16%, 
-    white 20%, rgba(189,189,252,1) 20%, 
-    rgba(189,189,252,1) 36%, white 36%, 
-    white 40%, rgba(189,189,252,1) 40%, 
-    rgba(189,189,252,1) 56%, white 56%, 
-    white 60%, rgba(189,189,252,1) 60%, 
-    rgba(189,189,252,1) 76%, white 76%, 
-    white 80%, rgba(189,189,252,1) 80%);
+    // rgba(189,189,252,1) 16%, white 16%, 
+    // white 20%, rgba(189,189,252,1) 20%, 
+    // rgba(189,189,252,1) 36%, white 36%, 
+    // white 40%, rgba(189,189,252,1) 40%, 
+    // rgba(189,189,252,1) 56%, white 56%, 
+    // white 60%, rgba(189,189,252,1) 60%, 
+    // rgba(189,189,252,1) 76%, white 76%, 
+    // white 80%, rgba(189,189,252,1) 80%);
+
      border-bottom-left-radius: 5px;
      border-bottom-right-radius: 5px;
      transition: 0.2s;
 }
 
 .delete-btn span::before{
+    border-top-right-radius: 1px;
+    border-top-left-radius: 1px;
     content: '';
     position: absolute;
     top: -7px;
-    width: 31px;
+    width: 30px;
     height: 4px;
     background: #bdbdfc;
     transition: 0.2s;
@@ -142,7 +144,7 @@
 
 .delete-btn:hover span::before{
     transition-duration: 0.3s;
-    transform: translateY(-4px) rotate(20deg);    
+    transform: translateY(-4px) rotate(20deg) translateX(1px);    
 }
 
 label{

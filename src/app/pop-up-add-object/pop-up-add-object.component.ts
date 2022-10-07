@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ValidationErrors, Validators } from "@angular/f
 import { FORMS_VALIDATION_ERRORS } from "../injectionTokenSettings/errors.token";
 import { objectNameMatch } from "../object-list/validators/object-name.validator";
 import { ObjectService } from "../services/object-data.service";
-import { myObject } from "../types/myObject.interface";
+import { MapObject } from "../types/MapObject.interface";
 
 
 @Component({
@@ -42,7 +42,7 @@ export class PopUpAddObjectComponent{
 
     public addObject(): void {
         if (this.objectForm.valid) {
-            const newObject: myObject = {
+            const newObject: MapObject = {
                 objectName: this.objectForm.get("objectName")?.value as string,
                 coordinateX: this.objectForm.get("coordinateX")?.value as number,
                 coordinateY: this.objectForm.get("coordinateY")?.value as number,
