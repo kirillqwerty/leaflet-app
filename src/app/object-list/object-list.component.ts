@@ -8,22 +8,37 @@ import { MapObject } from "../types/MapObject.interface";
 @Component({
   selector: "app-object-list",
   templateUrl: "./object-list.component.html",
-  animations: [trigger("deletion", [
-    state("open", style({
-      opacity: 1,
-    })),
-    state("closed", style({
-      opacity: 0.7,
-      width: 0
-    })),
-    transition("open => closed", [
-      animate("0.4s")
-    ]),]),
+  animations: [
+    trigger("fadeAnimation", [
+
+        state("in", style({
+            // opacity: 1,
+            // translate: "0px"
+            transform: "translate(-500px)"
+        })),
+
+        transition(":enter", [
+          style({
+            // opacity: 0,
+            transform: "translateY(500px)"
+
+        }),
+          animate(200)
+        ]),
+  
+        transition(":leave",
+          animate(400, style({
+            // opacity: 0,
+            transform: "translate(-500px)"
+        })))
+      ])
   ],
   styleUrls: ["./object-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ObjectListComponent implements OnInit, OnDestroy {
+
+    public isDeletion = false;
 
     public currentObjects: MapObject[] = [];
 

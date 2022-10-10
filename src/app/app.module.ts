@@ -7,6 +7,7 @@ import { ObjectListComponent } from "./object-list/object-list.component";
 import { MapComponent } from "./map/map.component";
 import { PopUpAddObjectComponent } from "./pop-up-add-object/pop-up-add-object.component";
 import { ErrWrapperComponent } from "./err-wrapper/err-wrapper.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ErrWrapperComponent } from "./err-wrapper/err-wrapper.component";
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

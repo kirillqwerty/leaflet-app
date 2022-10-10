@@ -7,19 +7,17 @@
         <label *ngIf="currentObjects.length === 0" class="message-section">No objects</label>
         <label *ngIf="searchWord.length !== 0 && 
                     searchResult.length === 0 && 
-                    currentObjects.length !== 0" class="message-section">No search result</label>
+                    currentObjects.length !== 0" class="message-section" >No search result</label>
 
-        <div *ngFor="let object of searchResult" class="object-section">
-            <a class="object-info-wrapper" (click)="setCurrentObject(object)">
-                <div class="object-info">
+        <div *ngFor="let object of searchResult" class="object-section" [@fadeAnimation]>
+            <a class="object-info-wrapper" (click)="setCurrentObject(object)" >
+                <div class="object-info" >
                     <label>Name: {{object.objectName}}</label> 
                     <label>Latitude: {{object.coordinateX}}</label>
                     <label>Longitude: {{object.coordinateY}}</label> 
                 </div>
             </a>
             <a class="delete-btn" (click)="deleteObject(object)"><span></span></a>
-            <!-- <a class="delete-btn"><span></span></a> -->
-
         </div>
     </div>
 </div>
