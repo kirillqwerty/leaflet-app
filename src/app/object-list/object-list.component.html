@@ -4,12 +4,17 @@
 </div>
 <div class="body-wrapper">
     <div class="body">
-        <label *ngIf="currentObjects.length === 0" class="message-section">No objects</label>
+        <label *ngIf="currentObjects.length === 0 && animationDone" class="message-section">No objects</label>
         <label *ngIf="searchWord.length !== 0 && 
                     searchResult.length === 0 && 
-                    currentObjects.length !== 0" class="message-section" >No search result</label>
+                    currentObjects.length !== 0 && animationDone" class="message-section" >No search result</label>
 
-        <div *ngFor="let object of searchResult" class="object-section" [@fadeAnimation]>
+        <div *ngFor="let object of searchResult" 
+        class="object-section" 
+        [@fadeAnimation] 
+        (@fadeAnimation.start)="changeStatusAnimation($event)"
+        (@fadeAnimation.done)="changeStatusAnimation($event)"
+        >
             <a class="object-info-wrapper" (click)="setCurrentObject(object)" >
                 <div class="object-info" >
                     <label>Name: {{object.objectName}}</label> 

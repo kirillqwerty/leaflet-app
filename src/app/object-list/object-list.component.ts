@@ -4,7 +4,7 @@ import { FormControl } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
 import { ObjectService } from "../services/object-data.service";
 import { MapObject } from "../types/MapObject.interface";
-
+import { AnimationEvent } from "@angular/animations";
 @Component({
   selector: "app-object-list",
   templateUrl: "./object-list.component.html",
@@ -12,14 +12,11 @@ import { MapObject } from "../types/MapObject.interface";
     trigger("fadeAnimation", [
 
         state("in", style({
-            // opacity: 1,
-            // translate: "0px"
             transform: "translate(-500px)"
         })),
 
         transition(":enter", [
           style({
-            // opacity: 0,
             transform: "translateY(500px)"
 
         }),
@@ -28,7 +25,6 @@ import { MapObject } from "../types/MapObject.interface";
   
         transition(":leave",
           animate(400, style({
-            // opacity: 0,
             transform: "translate(-500px)"
         })))
       ])
@@ -37,9 +33,7 @@ import { MapObject } from "../types/MapObject.interface";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ObjectListComponent implements OnInit, OnDestroy {
-
-    public isDeletion = false;
-
+    
     public currentObjects: MapObject[] = [];
 
     public searchResult: MapObject[] = [];
@@ -47,6 +41,8 @@ export class ObjectListComponent implements OnInit, OnDestroy {
     public searchWord = "";
 
     public searchControl = new FormControl("");
+
+    public animationDone = true;
 
     private readonly unsubscribe$: Subject<void> = new Subject();
 
@@ -116,7 +112,7 @@ export class ObjectListComponent implements OnInit, OnDestroy {
         //     coordinateY: 1634
         // }]
 
-
+        
         this.searchControl.valueChanges
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe( 
@@ -146,11 +142,21 @@ export class ObjectListComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
     }
 
+    public changeStatusAnimation(status: AnimationEvent): void{
+        if (status.phaseName === "start") {
+            this.animationDone = false;
+        }
+        if (status.phaseName === "done") {
+            this.animationDone = true;
+        }
+        this.cdr.detectChanges();
+    }
+
     public search(searchWord: string): void{
         this.searchResult = [];
         if(searchWord !== "") {
             for (const object of this.currentObjects) {
-                if (object.objectName.includes(searchWord.toLowerCase())) {
+                if (object.objectName.toLowerCase().includes(searchWord.toLowerCase())) {
                     this.searchResult.push(object)
                 }
             }
