@@ -1,4 +1,14 @@
-# LeafletNg
+# LeafletNg is object simulator on the map.
+
+![leaflet-app](https://user-images.githubusercontent.com/79408397/195558035-cca17d1e-1d3c-424c-8d89-c35df6ad6787.png)
+
+Here you can see your objects on the map.
+You can center the map relative to the object you clicked on.
+
+![leaflet add-object](https://user-images.githubusercontent.com/79408397/195559459-0b9a8a6a-9f9f-48ed-92a9-d9696f8643f6.png)
+
+You can add marks using longitude and latitude.
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.0.
 
